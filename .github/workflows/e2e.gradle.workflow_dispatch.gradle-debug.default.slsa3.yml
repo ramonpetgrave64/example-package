@@ -16,7 +16,7 @@ concurrency: "e2e-gradle-workflow_dispatch-main-default-slsa3"
 env:
   # TODO(#263): create dedicated token
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  ISSUE_REPOSITORY: slsa-framework/slsa-github-generator
+  ISSUE_REPOSITORY: ramonpetgrave64/slsa-github-generator
 
 jobs:
   # Bootstrap
