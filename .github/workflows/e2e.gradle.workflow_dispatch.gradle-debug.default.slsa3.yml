@@ -90,7 +90,6 @@ jobs:
           PROVENANCE_DIR: "slsa-attestations/${{ needs.build.outputs.provenance-download-name }}"
           EXPECTED_ARTIFACT_OUTPUT: "Hello world!"
           PROJECT_DIR: "e2e/gradle/workflow_dispatch"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./.github/workflows/scripts/e2e.gradle.default.verify.sh
 
   if-succeeded:
