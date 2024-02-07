@@ -9,13 +9,13 @@ on:
         default: false
         type: boolean
 
-permissions: read-all
+permissions: write-all
 
 concurrency: "e2e-gradle-workflow_dispatch-main-default-slsa3"
 
 env:
   # TODO(#263): create dedicated token
-  GH_TOKEN: ${{ secrets.E2E_NODEJS_TOKEN }}
+  GH_TOKEN: ${{ github.token }}
   ISSUE_REPOSITORY: slsa-framework/slsa-github-generator
 
 jobs:
@@ -62,7 +62,7 @@ jobs:
       id-token: write # For signing.
       contents: read # For repo checkout of private repos.
       actions: read # For getting workflow run on private repos.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@main
+    uses: ramonpetgrave64/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@gradle-debug
     with:
       directory: ./e2e/gradle/workflow_dispatch
       artifact-list: build/libs/workflow_dispatch-GRADLE_VERSION.jar,build/libs/workflow_dispatch-GRADLE_VERSION-javadoc.jar,build/libs/workflow_dispatch-GRADLE_VERSION-sources.jar
