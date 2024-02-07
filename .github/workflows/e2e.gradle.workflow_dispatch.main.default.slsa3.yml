@@ -1,3 +1,25 @@
+Skip to content
+ramonpetgrave64
+/
+example-package
+
+Type / to search
+
+Code
+Pull requests
+1
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+.github/workflows/e2e.gradle.workflow_dispatch.main.default.slsa3.yml
+.github/workflows/e2e.gradle.workflow_dispatch.main.default.slsa3.yml #9
+Jobs
+Run details
+Workflow file for this run
+.github/workflows/e2e.gradle.workflow_dispatch.main.default.slsa3.yml at 690d959
 on:
   schedule:
     - cron: "0 15 * * *"
@@ -9,13 +31,13 @@ on:
         default: false
         type: boolean
 
-permissions: read-all
+permissions: write-all
 
 concurrency: "e2e-gradle-workflow_dispatch-main-default-slsa3"
 
 env:
   # TODO(#263): create dedicated token
-  GH_TOKEN: ${{ secrets.E2E_NODEJS_TOKEN }}
+  GH_TOKEN: ${{ github.token }}
   ISSUE_REPOSITORY: slsa-framework/slsa-github-generator
 
 jobs:
@@ -27,6 +49,7 @@ jobs:
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.trigger_build)
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - env:
@@ -54,14 +77,13 @@ jobs:
       - run: |
           echo "event: ${GITHUB_EVENT_NAME}"
           echo "ref: ${GITHUB_REF}"
-
   build:
     needs: [shim]
     permissions:
       id-token: write # For signing.
       contents: read # For repo checkout of private repos.
       actions: read # For getting workflow run on private repos.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@main
+    uses: ramonpetgrave64/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@gradle-debug
     with:
       directory: ./e2e/gradle/workflow_dispatch
       artifact-list: build/libs/workflow_dispatch-GRADLE_VERSION.jar,build/libs/workflow_dispatch-GRADLE_VERSION-javadoc.jar,build/libs/workflow_dispatch-GRADLE_VERSION-sources.jar
@@ -106,3 +128,4 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - run: ./.github/workflows/scripts/e2e-report-failure.sh
+Update e2e.gradle.workflow_dispatch.main.default.slsa3.yml · ramonpetgrave64/example-package@690d959
