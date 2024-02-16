@@ -8,6 +8,9 @@ on:
         required: false
         default: false
         type: boolean
+  pull_request:
+    branches:
+      - main
 
 permissions: read-all
 
@@ -48,7 +51,7 @@ jobs:
   #      should depend on this job.
   shim:
     # NOTE: this must be kept in sync with the if-failed job.
-    if: github.event_name == 'workflow_dispatch' && inputs.trigger_build
+    if: github.event_name == 'workflow_dispatch' && inputs.trigger_build || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - run: |
